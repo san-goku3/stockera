@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Include your CSS styles here */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            display: flex;
+            height: 100%;
+        }
+
+        /* Sidebar Container */
+    #sidebar {
+        width: 250px;
+        background-color: #f4f6fb;
+        color: #666;
+        padding: 20px;
+        height: 100vh;
+    }
+
+    /* Brand Logo and Title */
+    #sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #4a54d6;
+        font-weight: bold;
+    }
+
+    /* Menu List */
+    #sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Menu Items */
+    #sidebar ul li {
+        margin: 20px 0;
+    }
+
+    /* Menu Links */
+    #sidebar ul li a {
+        display: flex;
+        align-items: center;
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Icon Before Text */
+    #sidebar ul li a::before {
+        content: attr(data-icon);
+        margin-right: 10px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 16px;
+        display: inline-block;
+    }
+
+    /* Active Menu Item */
+    #sidebar ul li a.active,
+    #sidebar ul li a:hover {
+        background-color: #4a54d6;
+        color: #fff;
+    }
+
+    /* Section Headers */
+    #sidebar ul li.section-title {
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-top: 30px;
+        color: #a3a3a3;
+    }
+
+        #main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+         /* Topbar Container */
+    #topbar {
+        background-color: #ffffff;
+        padding: 10px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    /* Search Box Styling */
+    .search-box {
+        display: flex;
+        align-items: center;
+        background-color: #f4f6fb;
+        padding: 8px 12px;
+        border-radius: 25px;
+    }
+
+    .search-box input {
+        border: none;
+        background-color: transparent;
+        outline: none;
+        padding: 5px;
+        width: 250px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .search-box input::placeholder {
+        color: #ccc;
+    }
+
+    /* User Info Styling */
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-info .username {
+        font-weight: 500;
+        color: #666;
+        margin-right: 20px;
+    }
+
+    /* Profile Circle */
+    .profile-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fde8cc;
+        color: #ffb74d;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
+    /* Notification Icon */
+    .notification-icon {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .notification-icon i {
+        font-size: 20px;
+        color: #888;
+    }
+
+    /* Notification Badge */
+    .notification-icon .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #ff5b5b;
+        color: white;
+        border-radius: 50%;
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        .btn-register {
+            background-color: #fff;
+            color: #8d76d6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-register:hover {
+            background-color: #8d76d6;
+            color: #fff;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            /*color: #fff;*/
+        }
+
+        .status.ongoing {
+            background-color: #baffca;
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .status.coming {
+            background-color: #feffbd;
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
+
+        .status.new-listed {
+            background-color: #f4b8be;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-update {
+            background-color: #4a54d6;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .page-link {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .page-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .page-link.active {
+            color: blue;
+            border-color: blue;
+        }
+
+        .page-link.disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .page-dots {
+            padding: 10px 15px;
+            margin: 0 5px;
+            color: #999;
+        }
+
+        .page-link.prev, .page-link.next {
+            border-radius: 5px;
+        }
+
+        /**********************************************/
+
+        #dashboard-section {
+    padding: 20px;
+}
+
+/*h2 {
+    margin-bottom: 20px;
+    color: #333;
+}*/
+
+.dashboard-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ipo-dashboard, .quick-links, .main-board-ipo {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 32%;
+    text-align: center;
+}
+
+.ipo-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    height: 250px; /* Adjust based on your layout */
+}
+
+.ipo-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+}
+
+.ipo-circle span {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 10px;
+}
+
+.ipo-gain {
+    background-color: #34c38f;
+    top: 50%;
+    left: 0%;
+    width: 100px;
+    height: 100px;
+}
+
+.ipo-loss {
+    background-color: #6f42c1;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 130px;
+}
+
+.ipo-total {
+    background-color: #f1b44c;
+    top: 41%;
+    right: 0%;
+    width: 100px;
+    height: 100px;
+    font-size: 30px;
+}
+
+.ipo-circle {
+    border: 4px solid white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/*.ipo-dashboard, .quick-links, .main-board-ipo {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 32%;
+}
+
+
+.ipo-dashboard h3, .quick-links h3, .main-board-ipo h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.ipo-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.ipo-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ipo-gain {
+    background-color: #34c38f;
+}
+
+.ipo-loss {
+    background-color: #f46a6a;
+}
+
+.ipo-total {
+    background-color: #f1b44c;
+}
+*/
+
+.quick-links h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.quick-links p {
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.quick-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-links ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.quick-links ul li:last-child {
+    border-bottom: none;
+}
+
+.quick-links ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    width: 100%;
+}
+
+.quick-links ul li img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-links ul li .visit-now {
+    margin-left: auto;
+    font-size: 14px;
+    color: #6c757d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.quick-links ul li:hover {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/*.quick-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-links ul li {
+    margin: 10px 0;
+}
+
+.quick-links ul li a {
+    text-decoration: none;
+    color: #6c757d;
+}*/
+
+.main-board-ipo .ipo-status {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.status-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    background-color: #f0f1f5;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.view-report {
+    background-color: #556ee6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Form Container Styling */
+#ipo-register-form {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+    }
+
+    #ipo-register-form h2 {
+        text-align: center;
+        color: #4a54d6;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* Flexbox Styling for Form Groups */
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+        margin-right: 15px;
+    }
+
+    .form-row .form-group:last-child {
+        margin-right: 0;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group select {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group input[type="file"] {
+        padding: 5px;
+        border: none;
+        background-color: transparent;
+    }
+
+    /* Button Styling */
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #4a54d6;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #3b45b0;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #565e64;
+    }
+
+    /* Specific for Company Logo */
+    .form-group#logo-group {
+        margin-bottom: 30px;
+    }
+
+    .form-group #company_logo {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .form-group #company_logo + .btn {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    /* Alert Message Styling */
+    .alert {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-danger ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .alert-danger li {
+        margin-bottom: 5px;
+    }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div id="container">
+        <div id="sidebar">
+            <h2>Stockera</h2>
+            <ul>
+                <li><a href="#" id="dashboard-link" class="active" onclick="showSection('dashboard-section')" data-icon="📊">Dashboard</a></li>
+                <li><a href="#" id="manage-ipo-link" onclick="showSection('manage-ipo-section')" data-icon="🛒">Manage IPO</a></li>
+                <li><a href="#" id="ipo-subscription-link" onclick="showSection('ipo-subscription-section')" data-icon="📄">IPO Subscription</a></li>
+                <li><a href="#" id="ipo-allotment-link" onclick="showSection('ipo-allotment-section')" data-icon="💬">IPO Allotment</a></li>
+                <li><a href="#" id="ipo-allotment-link" onclick="showSection('ipo-allotment-section')" data-icon="💬">IPO prediction</a></li>
+                <li class="section-title">Others</li>
+                <li><a href="#" id="settings-link" onclick="showSection('settings-section')" data-icon="⚙">Settings</a></li>
+                <li><a href="#" id="api-manager-link" onclick="showSection('api-manager-section')" data-icon="🔗">API Manager</a></li>
+                <li><a href="#" id="accounts-link" onclick="showSection('accounts-section')" data-icon="👤">Accounts</a></li>
+                <li><a href="#" id="help-link" onclick="showSection('help-section')" data-icon="ℹ️">Help</a></li>
+            </ul>
+        </div>
+        <div id="main-content">
+            <div id="topbar">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="profile-circle">{{usernameabbrevation}}</div>
+                    <span class="username">Hi, {{ username }}</span>
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">1</span>
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+                <input type="hidden" id="current-section" name="current_section" value="dashboard-section">
+                <div id="dashboard-section">
+                    <h2>Dashboard</h2>
+            
+                    <div class="dashboard-content">
+                        <!-- IPO Dashboard India -->
+                        <div class="ipo-dashboard">
+                            <h3>IPO Dashboard India</h3>
+                            <div class="ipo-info">
+                                <div class="ipo-circle ipo-gain">
+                                    <p>{{ ipo_counts.total_ipo_gain }}</p>
+                                    <span>IPO in Gain</span>
+                                </div>
+                                <div class="ipo-circle ipo-loss">
+                                    <p>{{ ipo_counts.total_ipo_loss }}</p>
+                                    <span>IPO in Loss</span>
+                                </div>
+                                <div class="ipo-circle ipo-total">
+                                    <p>{{ ipo_counts.total_ipo }}</p>
+                                    <span>Total IPO</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+            
+                        <!-- Quick Links -->
+                        <div class="quick-links">
+                            <h3>Quick Links</h3>
+                            <p>Adipiscing elit, sed do eiusmod tempor</p>
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <img src="{% static 'assets/img/nse_logo.png' %}" alt="NSE India">
+                                        NSE India
+                                        <span class="visit-now">Visit Now</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="{% static 'assets/img/bse_logo.png' %}" alt="BSE India">
+                                        BSE India
+                                        <span class="visit-now">Visit Now</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="{% static 'assets/img/sebi_logo.png' %}" alt="SEBI">
+                                        SEBI
+                                        <span class="visit-now">Visit Now</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="{% static 'assets/img/moneycontrol_logo.png' %}" alt="Money Control">
+                                        Money Control
+                                        <span class="visit-now">Visit Now</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+            
+                        <!-- Main Board IPO -->
+                        <div class="main-board-ipo">
+                            <h3>Main Board IPO</h3>
+                            <p>From 01 Jan 2024</p>
+                            <div class="ipo-status">
+                                <canvas id="ipoChart" width="200" height="200"></canvas>
+                            </div>
+                            <button class="view-report">View Report</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="manage-ipo-section" class="{% if section == 'manage-ipo-section' or not errors %}d-block{% else %}d-none{% endif %}">
+                    <div id="ipo-dashboard">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2>Upcoming IPO | Dashboard</h2>
+                            <button class="btn-register" onclick="showRegisterForm()">Register IPO</button>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Price Band</th>
+                                    <th>Open</th>
+                                    <th>Close</th>
+                                    <th>Issue Size</th>
+                                    <th>Issue Type</th>
+                                    <th>Listing Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                    <th>Delete/View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ipo in page_obj %}
+                                <tr>
+                                    <td>{{ ipo.company_name|default:"Not issued" }}</td>
+                                    <td><span>&#36;</span> {{ ipo.price_band|default:"Not issued" }}</td>
+                                    <td>{{ ipo.open |default:"Not issued" }}</td>
+                                    <td>{{ ipo.close |default:"Not issued" }}</td>
+                                    <td>{{ ipo.issue_size|default:"Not issued" }} Cr.</td>
+                                    <td>
+                                        {% if ipo.issue_type == '1' %}
+                                            Book Built
+                                        {% elif ipo.issue_type == '2' %}
+                                            Fixed Price
+                                        {% else %}
+                                            Not issued
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ ipo.listing_date|default:"Not issued" }}</td>
+                                    <td>
+                                        {% if ipo.status == 3 %}
+                                            <span class="status ongoing">Ongoing</span>
+                                        {% elif ipo.status == 2 %}
+                                            <span class="status coming">Coming</span>
+                                        {% elif ipo.status == 1 %}
+                                            <span class="status new-listed">New Listed</span>
+                                        {% else %}
+                                            <span class="status">Not issued</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn-update" onclick="showUpdateForm({{ ipo.id }})">Update</button>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="{% url 'delete_ipo' ipo.id %}" onsubmit="return confirmDelete();">
+                                            {% csrf_token %}
+                                            <button class="btn-delete" type="submit"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                        <button class="btn-view"><i class="fas fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}&section=manage-ipo-section" class="page-link prev">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            {% else %}
+                                <span class="page-link prev disabled"><i class="fas fa-chevron-left"></i></span>
+                            {% endif %}
+                        
+                            {% for page_num in page_obj.paginator.page_range %}
+                                {% if page_num == page_obj.number %}
+                                    <a href="?page={{ page_num }}&section=manage-ipo-section" class="page-link active">{{ page_num }}</a>
+                                {% elif page_num > page_obj.number|add:'-5' and page_num < page_obj.number|add:'5' %}
+                                    <a href="?page={{ page_num }}&section=manage-ipo-section" class="page-link">{{ page_num }}</a>
+                                {% elif page_num == 1 %}
+                                    <a href="?page={{ page_num }}&section=manage-ipo-section" class="page-link">{{ page_num }}</a>
+                                    <span class="page-dots">...</span>
+                                {% elif page_num == page_obj.paginator.num_pages %}
+                                    <span class="page-dots">...</span>
+                                    <a href="?page={{ page_num }}&section=manage-ipo-section" class="page-link">{{ page_num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}&section=manage-ipo-section" class="page-link next">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            {% else %}
+                                <span class="page-link next disabled"><i class="fas fa-chevron-right"></i></span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div id="ipo-register-form" class="{% if section == 'ipo-register-form' or errors %}d-block{% else %}d-none{% endif %}">
+                        <h2>Register IPO</h2>
+                        <form method="POST" action="{% url 'dashboard' %}?section=ipo-register-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="register_ipo" value="true">
+                    
+                            {% if errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                    
+                            <!-- Company Logo (Full Row) -->
+                            <!--<div class="form-group" id="logo-group">
+                                <label for="company_logo">Company Logo:</label>
+                                <input type="file" id="company_logo" name="company_logo">
+                            </div>-->
+                            <div class="form-group" id="logo-group">
+                                <label for="company_logo">Company Logo:</label>
+                            
+                                <!-- Display the uploaded image if it exists -->
+                                {% if company_logo_url %}
+                                <div style="margin-bottom: 10px;">
+                                    <img src="{{ company_logo_url }}" alt="Company Logo" style="max-width: 200px; max-height: 200px; display: block;">
+                                </div>
+                                {% endif %}
+                            
+                                <!-- File input for logo -->
+                                <div class="form-group" id="logo-group">
+                                    <label for="company_logo" class="btn btn-primary" style="width: 15%; color: #ffffff;">Choose Logo</label>
+                                    <input type="file" id="company_logo" name="company_logo" accept="image/*" style="display:none;">
+                                    <span id="file-name-display">No file chosen</span>
+                                </div>
+                                <!--<input type="file" id="company_logo" name="company_logo" accept="image/*">-->
+                            </div>
+                    
+                            <!-- Two Input Fields Per Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="company_name">Company Name:</label>
+                                    <input type="text" id="company_name" name="company_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price_band">Price Band:</label>
+                                    <input type="text" name="price_band" id="price_band">
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="open">Open:</label>
+                                    <input type="date" name="open" id="open">
+                                </div>
+                                <div class="form-group">
+                                    <label for="close">Close:</label>
+                                    <input type="date" name="close" id="close">
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="issue_size">Issue Size:</label>
+                                    <input type="text" name="issue_size" id="issue_size">
+                                </div>
+                                <div class="form-group">
+                                    <label for="issue_type">Issue Type:</label>
+                                    <select name="issue_type" id="issue_type">
+                                        <option value="1">Book Built</option>
+                                        <option value="2">Fixed Price</option>
+                                    </select>
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="listing_date">Listing Date:</label>
+                                    <input type="date" name="listing_date" id="listing_date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <select name="status" id="status">
+                                        <option value="3">Ongoing</option>
+                                        <option value="2">Coming</option>
+                                        <option value="1">New Listed</option>
+                                    </select>
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ipo_price">IPO Price:</label>
+                                    <input type="text" name="ipo_price" id="ipo_price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="listing_price">Listing Price:</label>
+                                    <input type="text" name="listing_price" id="listing_price">
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="listing_gain">Listing Gain:</label>
+                                    <input type="text" name="listing_gain" id="listing_gain">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cmp">CMP:</label>
+                                    <input type="text" name="cmp" id="cmp">
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="current_return">Current Return:</label>
+                                    <input type="text" name="current_return" id="current_return">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rhp_link">RHP Link:</label>
+                                    <input type="text" name="rhp_link" id="rhp_link">
+                                </div>
+                            </div>
+                    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="drhp_link">DRHP Link:</label>
+                                    <input type="text" name="drhp_link" id="drhp_link">
+                                </div>
+                            </div>
+                    
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideMainRegisterForm()">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div id="ipo-subscription-section" class="d-none">
+                    <h2>IPO Subscription</h2>
+                    <!-- Add content for IPO Subscription section -->
+                </div>
+                <!-- <div id="ipo-allotment-section" class="d-none">
+                    <h2>IPO Allotment</h2>
+                    <h1>IPO predict</h1>
+                    Add content for IPO Allotment section
+                </div> -->
+
+                <div id="ipo-allotment-section" class="ipo-container">
+                    <h2>IPO Allotment</h2>
+                    <h3>IPO Listing Gain Prediction</h3>
+                
+                    <label for="company-count">Enter the number of companies:</label>
+                    <input type="number" id="company-count" min="1" value="1" onchange="generateCompanyInputs()" />
+                
+                    <div id="company-inputs">
+                        <!-- Company input fields will be generated here -->
+                    </div>
+                
+                    <button onclick="submitPrediction()">Predict</button>
+                    <div id="prediction-result"></div>
+                </div>
+                
+                <div id="settings-section" class="d-none">
+                    <h2>Settings</h2>
+                    <!-- Add content for Settings section -->
+                </div>
+                <div id="api-manager-section" class="d-none">
+                    <h2>API Manager</h2>
+                    <!-- Add content for API Manager section -->
+                </div>
+                <div id="accounts-section" class="d-none">
+                    <h2>Accounts</h2>
+                    <!-- Add content for Accounts section -->
+                </div>
+                <div id="help-section" class="d-none">
+                    <h2>Help</h2>
+                    <!-- Add content for Help section -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const ctx = document.getElementById('ipoChart').getContext('2d');
+        const ipoChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Upcoming', 'New Listed', 'Ongoing'],
+                datasets: [{
+                    label: 'IPO Status',
+                    data: [{{ipo_counts.total_ipo_upcomming}}, {{ipo_counts.total_ipo_new_listed}}, {{ipo_counts.total_ipo_ongoing}}],
+                    backgroundColor: [
+                        '#556ee6',
+                        '#34c38f',
+                        '#f1b44c'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                            }
+                        }
+                    }
+                },
+                cutout: '70%' // This will adjust the thickness of the doughnut
+            }
+        });
+        </script>
+    <script>
+        function generateCompanyInputs() {
+    const count = parseInt(document.getElementById("company-count").value);
+    const container = document.getElementById("company-inputs");
+    container.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+        const div = document.createElement("div");
+        div.className = "company-section";
+        div.innerHTML = `<h4>Company ${i + 1}</h4>` + Array.from({ length: 9 }, (_, j) => `
+            <label>Feature ${j + 1}: 
+                <input type="number" step="0.01" name="feature-${i}-${j}" />
+            </label>
+        `).join("<br>");
+        container.appendChild(div);
+    }
+}
+
+async function submitPrediction() {
+    const count = parseInt(document.getElementById("company-count").value);
+    const payload = [];
+
+    for (let i = 0; i < count; i++) {
+        const features = [];
+        for (let j = 0; j < 9; j++) {
+            const input = document.querySelector(`input[name='feature-${i}-${j}']`);
+            features.push(parseFloat(input.value || 0));
+        }
+        payload.push(features);
+    }
+
+    try {
+        const response = await fetch("http://localhost:5000/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ data: payload })
+        });
+
+        const result = await response.json();
+        document.getElementById("prediction-result").innerHTML = `
+      <h4>Predictions:</h4>
+        <p>${result.listing_gains.map((gain, index) => `Company ${index + 1}: ${gain.toFixed(2)}%`).join('<br>')}</p>
+`;
+
+    } catch (error) {
+        console.error("Prediction failed", error);
+        document.getElementById("prediction-result").textContent = "Error during prediction.";
+    }
+}
+
+// Initialize 1 company input by default
+window.onload = generateCompanyInputs;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('#content > div').forEach(section => {
+                section.classList.add('d-none');
+            });
+            // Show the selected section
+            document.getElementById(sectionId).classList.remove('d-none');
+            // Update the current section value
+            document.getElementById('current-section').value = sectionId;
+        }
+
+        // Retrieve the section from the query parameter if available
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionParam = urlParams.get('section');
+        if (sectionParam) {
+            showSection(sectionParam);
+        } else {
+            showSection('dashboard-section'); // Default section
+        }
+
+        // Optional: Add event listeners for navigation links
+        document.querySelectorAll('#sidebar ul li a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.querySelectorAll('#sidebar ul li a').forEach(link => link.classList.remove('active'));
+            this.classList.add('active');
+            showSection(this.getAttribute('onclick').split('\'')[1]);
+        });
+    });
+    </script>
+    <script>
+        function showRegisterForm() {
+            document.getElementById('ipo-dashboard').style.display = 'none';
+            document.getElementById('ipo-register-form').style.display = 'block';
+        }
+        
+        function hideMainRegisterForm() {
+            document.getElementById('ipo-register-form').style.display = 'none';
+            document.getElementById('ipo-dashboard').style.display = 'block';
+        }
+    </script>
+    <script>
+        function showUpdateForm(ipoId) {
+    fetch(`/bluestockadmin/get_ipo_data/${ipoId}/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ipo-dashboard').style.display = 'none';
+            document.getElementById('ipo-register-form').style.display = 'block';
+
+            // Set company logo
+            let companyLogoHTML = `
+                <label for="company_logo">Company Logo:</label>
+                ${data.company_logo_path ? `<img src="${data.company_logo_path}" alt="Current Logo" width="100px">` : ''}
+                <input type="file" id="company_logo" name="company_logo">
+                ${data.company_logo_path ? '<input type="hidden" name="current_company_logo" value="'+data.company_logo_path+'">' : ''}
+                <p>${data.company_logo_path ? 'Upload a new logo to replace the current one' : 'No logo uploaded yet'}</p>
+            `;
+
+            document.getElementById('ipo-register-form').innerHTML = `
+                <h2>Update IPO</h2>
+                <form method="POST" action="{% url 'dashboard' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="update_ipo" value="true">
+                    <input type="hidden" name="ipo_id" value="${data.id}">
+
+                    {% if errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+                    
+                    <div class="form-group">
+                        ${companyLogoHTML}
+                    </div>
+                    <!-- Two-Column Form Rows -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company_name">Company Name:</label>
+                            <input type="text" id="company_name" name="company_name" value="${data.company_name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price_band">Price Band:</label>
+                            <input type="text" name="price_band" id="price_band" value="${data.price_band}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="open">Open:</label>
+                            <input type="date" name="open" id="open" value="${formatDate(data.open)}">
+                        </div>
+                        <div class="form-group">
+                            <label for="close">Close:</label>
+                            <input type="date" name="close" id="close" value="${formatDate(data.close)}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issue_size">Issue Size:</label>
+                            <input type="text" name="issue_size" id="issue_size" value="${data.issue_size}">
+                        </div>
+                        <div class="form-group">
+                            <label for="issue_type">Issue Type:</label>
+                            <select name="issue_type" id="issue_type">
+                                <option value="1" ${data.issue_type == 1 ? 'selected' : ''}>Book Built</option>
+                                <option value="2" ${data.issue_type == 2 ? 'selected' : ''}>Fixed Price</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="listing_date">Listing Date:</label>
+                            <input type="date" name="listing_date" id="listing_date" value="${formatDate(data.listing_date)}">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select name="status" id="status">
+                                <option value="3" ${data.status == 3 ? 'selected' : ''}>Ongoing</option>
+                                <option value="2" ${data.status == 2 ? 'selected' : ''}>Coming</option>
+                                <option value="1" ${data.status == 1 ? 'selected' : ''}>New Listed</option>
+                            </select>
+                        </div>
+                   </div>
+
+                   <div class="form-row">
+                        <div class="form-group">
+                            <label for="ipo_price">IPO Price:</label>
+                            <input type="text" name="ipo_price" id="ipo_price" value="${data.ipo_price}">
+                        </div>
+                        <div class="form-group">
+                            <label for="listing_price">Listing Price:</label>
+                            <input type="text" name="listing_price" id="listing_price" value="${data.listing_price}">
+                        </div>
+                   </div>
+
+                   <div class="form-row">
+                        <div class="form-group">
+                            <label for="listing_gain">Listing Gain:</label>
+                            <input type="text" name="listing_gain" id="listing_gain" value="${data.listing_gain}">
+                        </div>
+                        <div class="form-group">
+                            <label for="cmp">CMP:</label>
+                            <input type="text" name="cmp" id="cmp" value="${data.cmp}">
+                        </div>
+                   </div>
+
+                   <div class="form-row">
+                        <div class="form-group">
+                            <label for="current_return">Current Return:</label>
+                            <input type="text" name="current_return" id="current_return" value="${data.current_return}">
+                        </div>
+                        <div class="form-group">
+                            <label for="rhp">RHP:</label>
+                            <input type="text" name="rhp_link" id="rhp_link" value="${data.rhp}">
+                        </div>
+                   </div>
+
+                   <div class="form-row">
+                        <div class="form-group">
+                            <label for="drhp">DRHP:</label>
+                            <input type="text" name="drhp_link" id="drhp_link" value="${data.drhp}">
+                        </div>
+                   </div>
+
+                   <!-- Submit and Cancel Buttons -->
+                   <div class="form-row">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideRegisterForm()">Cancel</button>
+                        </div>
+                   </div>
+                </form>
+            `;
+        });
+}
+    
+        function hideRegisterForm() {
+            document.getElementById('ipo-register-form').style.display = 'none';
+            document.getElementById('ipo-dashboard').style.display = 'block';
+        }
+
+        function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+    </script>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this IPO?");
+        }
+    </script>
+    <script>
+        document.getElementById('company_logo').addEventListener('change', function() {
+            var fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+            document.getElementById('file-name-display').textContent = fileName;
+        });
+    </script>
+    
+</body>
+</html>

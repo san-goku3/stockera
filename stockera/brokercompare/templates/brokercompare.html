@@ -1,0 +1,1047 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %} | STOCKERA Fintech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- ===== Link Swiper's CSS ===== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- ===== Fontawesome CDN Link ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="{% static 'brokercompare/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
+    {% block head %}{% endblock %}
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    font-family: 'Poppins', sans-serif;
+    
+    
+}
+
+.logo {
+    width: 132px;
+    height: 118px;
+    flex-shrink: 0;
+    left: 43px;
+    
+}
+
+.navbar-brand {
+    color: #1E1E1E;
+    size: 45PX;
+    border: 1px;
+
+    font-weight: 700;
+    
+    
+
+}
+
+#navbarSupportedContent {
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.dropdown-menu {
+    font-size: 15px;
+    
+}
+
+#signup_button {
+    margin-right: 2rem;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#signin {
+    font-size: 15px;
+    color: #9A9A9A;
+    
+}
+
+.signin_up {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.btn {
+    height: 1.2 rem;
+    
+}
+
+.toggle-icon {
+    background: none;
+}
+
+.toggle-icon:hover {
+    background: none;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.faq-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.faq {
+    padding: 10px;
+}
+
+.faq-question {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px; /* Adjusted font size for better responsiveness */
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+
+.icon {
+    font-weight: bold;
+    font-size: 24px; /* Adjusted font size for better visibility */
+    margin-left: 10px; /* Added margin to separate icon from text */
+}
+
+@media (max-width: 992px) { /* For tablets */
+    .faq-question {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) { /* For mobile phones */
+    .faq-question {
+        font-size: 16px;
+    }
+}
+
+.footer {
+    
+    left: 412px;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+    
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    position: relative;
+    
+}
+
+/*.footer .container {
+        flex-direction: column;
+    
+        justify-content:space-between ;
+        position: relative;
+        
+    }*/
+
+.footer .footer-col {
+    flex: 1;
+    min-width: 150px;
+    margin: 10px;
+    
+    
+}
+
+.footer .footer-col h4 {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    width: 20%;
+    
+}
+
+.footer .footer-col ul {
+    list-style: none;
+    padding: 0;
+    
+    
+}
+
+.footer .footer-col ul li {
+    margin-bottom: 10px;
+    
+}
+
+.footer .footer-col ul li a {
+    color: #667384;
+    
+    text-decoration: none;
+    transition: color 0.3s;
+    
+}
+
+    
+    .footer .footer-col {
+        left:auto
+        
+    }
+
+    .footerContainer1{
+        display:flex;
+        padding: 20px;
+      }
+
+      @media (max-width: 995px) { 
+        .footerContainer1{
+            display:flex;
+            padding: 20px;
+            flex-wrap: wrap;
+          }
+    }
+      
+      .footer, .container-fluid p-0 {
+          flex: 1;
+          padding: 10px;
+        
+      }
+      
+      footer1 {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px;
+          
+      }
+      .heart {
+        color: red;
+    }
+    
+    .lastfooter {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    @media (max-width: 656px)
+    {
+        .lastfooter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+    }
+
+    .nav-menu a::before {
+  content: attr(data-icon);
+  margin-right: 8px; /* Add space between the icon and the text */
+}
+
+.offcanvas {
+    width: 250px; /* Customize width */
+}
+
+.offcanvas-header {
+    background-color: #f8f9fa; /* Light background */
+}
+
+.offcanvas-body .nav-link {
+    font-size: 18px; /* Adjust the font size for better visibility */
+}
+    
+    </style>
+  </head>
+  
+  <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+            <div class="container-fluid">
+                <nav class="navbar navbar-light bg-light px-0">
+                    <div class="container-fluid p-0">
+                        <a class="navbar-brand" href="#">
+                            <img src="{% static 'brokercompare/assets/img/logo.png' %}" alt="" width="45" height="25"
+                                class="d-inline-block align-text-top">
+                            STOCKERA
+                        </a>
+                    </div>
+                </nav>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+                    <div class="bignav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-none d-lg-flex">
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ipo' %}">IPO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">COMMUNITY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'sharkinvestor' %}">SHARK INVESTORS</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    BROKERS
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'brokercompare' %}">Broker Compare</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'brokers' %}">All Brokers</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">SUPPORT <i
+                                        class="fa-sharp fa-solid fa-arrow-left-long fa-rotate-by"
+                                        style="--fa-rotate-angle: 135deg;"></i></a>
+                            </li>
+                            
+    
+                        </ul>
+                    </div>
+    
+    
+                </div>
+                <div class="signin_up">
+                    <a class="nav-link nav-link-secondary  d-none d-lg-flex" id="signin" href="{% url 'sign_in' %}">Sign in</a>
+                    <a class="btn btn-primary btn-sm mr-4 d-none d-lg-flex" id="signup_button"
+    style="background-color: #3F52FF;" href="{% url 'create_account' %}">Sign Up Now</a>
+    
+    
+    <button class="toggle-icon navbar border-0 padding-right-0 pr-1" type="button"
+    data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+<span class=""><i class="fa-solid fa-grip-vertical fa-lg"></i></span>
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+<div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">STOCKERA Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'ipo' %}">IPO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">COMMUNITY</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'sharkinvestor' %}">SHARK INVESTORS</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                BROKERS
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'brokercompare' %}">Broker Compare</a></li>
+                <li><a class="dropdown-item" href="{% url 'brokers' %}">All Brokers</a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">SUPPORT</a>
+        </li>
+    </ul>
+</div>
+</div>
+                </div>
+        </nav>
+        <nav class="mx-5 my-3" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'brokercompare' %}" style="color: blue;">Brokers Compare</a></li>
+            </ol>
+        </nav>
+    </header>
+    
+    <!-- Content block -->
+     <div class="bodydiv">
+      <div class="nav-menu">
+        <a href="#" id="active-clients-link" data-icon="📊">
+          <span>Active Clients</span></a>
+        <a href="#" id="charges-link" data-icon="💲">Charges</a>
+        <a href="#" id="complaints-link" data-icon="⚠️">Complaints</a>
+        <a href="#" id="share-holding-link" data-icon="💼">Share Holding</a>
+        <a href="#" id="pros-cons-link" data-icon="🔄">Pros & Cons</a>
+        <a href="#" id="ratings-link" data-icon="⭐">Ratings</a>
+        <a href="#" id="financials-link" data-icon="📈">Financials</a>
+      </div>
+      <div class="dashboard">
+        <div id="section-container" class="section-container">
+            <div class="section-card">
+                <img src="{% static 'brokercompare/assets/images/angel_logo.png' %}" alt="Angel One">
+                <h3>Angel One</h3>
+                <p class="rating">4.7</p>
+                <p>⭐⭐⭐⭐⭐</p>
+                <a href="#" class="button">Open Demat Account</a>
+            </div>
+            <div class="vs">vs</div>
+            <div class="section-card">
+                <img src="{% static 'brokercompare/assets/images/zerodha_logo.png' %}" alt="Zerodha">
+                <h3>Zerodha</h3>
+                <p class="rating">4.6</p>
+                <p>⭐⭐⭐⭐⭐</p>
+                <a href="#" class="button">Open Demat Account</a>
+            </div>
+        </div>
+        <div id="active-clients-section" class="hidden">
+            <h2>Active Clients</h2>
+            <canvas id="activeClientsChart"></canvas>
+        </div>
+        <div id="charges-section" class="hidden">
+            <!-- Account Opening and Maintenance Charges Table -->
+            <h2>Account Opening and Maintenance Charges</h2>
+            <table class="charges-table">
+                <thead>
+                    <tr>
+                        <th>Charges</th>
+                        <th>Angel One</th>
+                        <th>Zerodha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Account Opening Charges</td>
+                        <td>0</td>
+                        <td>₹ 200</td>
+                    </tr>
+                    <tr>
+                        <td>Account Maintenance Charges</td>
+                        <td>₹ 30 for the first year then ₹ 23.6/Month</td>
+                        <td>₹ 300 per year</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <!-- Brokerage Charges Table -->
+            <h2>Brokerage Charges</h2>
+            <table class="charges-table">
+                <thead>
+                    <tr>
+                        <th>Brokerage Charges</th>
+                        <th>Angel One</th>
+                        <th>Zerodha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Intraday</td>
+                        <td>₹ 20 or 0.25% (Whichever is lower)</td>
+                        <td>₹ 20 or 0.03% / Executed order whichever is lower</td>
+                    </tr>
+                    <tr>
+                        <td>Futures</td>
+                        <td>₹ 20 or 0.25% (Whichever is lower)</td>
+                        <td>₹ 20 or 0.03% / Executed order whichever is lower</td>
+                    </tr>
+                    <tr>
+                        <td>Options</td>
+                        <td>₹ 20 or 0.25% (Whichever is lower)</td>
+                        <td>₹ 20 per executed order (on Turnover)</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery</td>
+                        <td>Zero</td>
+                        <td>Zero</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <!-- Brokerage Charges Icons -->
+            <div class="brokerage-icons">
+                <div class="row">
+                    <div class="icon-card green-card">
+                        <img src="{% static 'brokercompare/assets/images/angel_logo.png' %}" alt="Auto Square Off">
+                        <p class="icon-value">23.6</p>
+                        <p class="icon-label">Auto Square Off</p>
+                    </div>
+                    <div class="row-label">Auto Square Off</div>
+                    <div class="icon-card blue-card">
+                        <img src="{% static 'brokercompare/assets/images/zerodha_logo.png' %}" alt="Other Charges">
+                        <p class="icon-value">59</p>
+                        <p class="icon-label">Other Charges</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="icon-card green-card">
+                        <img src="{% static 'brokercompare/assets/images/angel_logo.png' %}" alt="Call & Trade">
+                        <p class="icon-value">20</p>
+                        <p class="icon-label">Call & Trade</p>
+                    </div>
+                    <div class="row-label">Call & Trade</div>
+                    <div class="icon-card blue-card">
+                        <img src="{% static 'brokercompare/assets/images/zerodha_logo.png' %}" alt="Other Charges">
+                        <p class="icon-value">50</p>
+                        <p class="icon-label">Other Charges</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="icon-card green-card">
+                        <img src="{% static 'brokercompare/assets/images/angel_logo.png' %}" alt="DP Charges">
+                        <p class="icon-value">15.34</p>
+                        <p class="icon-label">DP Charges</p>
+                    </div>
+                    <div class="row-label">DP Charges</div>
+                    <div class="icon-card blue-card">
+                        <img src="{% static 'brokercompare/assets/images/zerodha_logo.png' %}" alt="Other Charges">
+                        <p class="icon-value">15.93</p>
+                        <p class="icon-label">Other Charges</p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="brokerage-icons">
+                <div class="icon-card">
+                    <img src="auto_square_off_icon.png" alt="Auto Square Off">
+                    <p class="icon-value">23.6</p>
+                    <p class="icon-label">Auto Square Off</p>
+                </div>
+                <div class="icon-card">
+                    <img src="call_trade_icon.png" alt="Call & Trade">
+                    <p class="icon-value">20</p>
+                    <p class="icon-label">Call & Trade</p>
+                </div>
+                <div class="icon-card">
+                    <img src="dp_charges_icon.png" alt="DP Charges">
+                    <p class="icon-value">15.34</p>
+                    <p class="icon-label">DP Charges</p>
+                </div>
+                <div class="icon-card">
+                    <img src="other_charges_icon.png" alt="Other Charges">
+                    <p class="icon-value">59</p>
+                    <p class="icon-label">Other Charges</p>
+                </div>
+            </div>-->
+        </div>
+        <div id="complaints-section" class="hidden">
+            <h2>Complaints</h2>
+            <canvas id="complaintsChart"></canvas>
+        </div>
+        <div id="share-holding-section" class="hidden">
+            <h2>Share Holding</h2>
+            <canvas id="shareHoldingAngelOne"></canvas>
+            <canvas id="shareHoldingZerodha"></canvas>
+        </div>
+        <div id="pros-cons-section" class="hidden">
+            <div class="pros-cons-container">
+                <div class="pros-cons-table">
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-header pros">Pros</div>
+                        <div class="pros-cons-header cons">Cons</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">Angel One charges zero account opening charges as well as zero annual maintenance charges for only the first year</div>
+                        <div class="pros-cons-cell cons">Call and trade fee is charged at an extra Rs 20 per executed order.</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">Zero brokerage charges for equity delivery and remaining segments like intraday and F&O which is flat Rs. 20 per trade.</div>
+                        <div class="pros-cons-cell cons">User Interface is a bit complex as it is not for beginners.</div>
+                    </div>
+                </div>
+        
+                <div class="pros-cons-table">
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-header pros">Pros</div>
+                        <div class="pros-cons-header cons">Cons</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">You don’t pay any brokerage when you buy shares using cash-and-carry (CNC). Delivery trade has no leverage. Once bought, shares get delivered to your demat account and if sold, shares will get debited from your demat account.</div>
+                        <div class="pros-cons-cell cons">Doesn’t provide stock tips, research reports or recommendations.</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">They offer services under a simple pricing model. They charge 0.03%, or Rs 20 per executed order, whichever is lower, regardless of the trade size. The maximum brokerage paid by the customer is Rs 20 per trade.</div>
+                        <div class="pros-cons-cell cons">Lifetime free AMC demat account plans are not available.</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">Zerodha is a self-clearing broker. They don’t charge clearing charges from customers</div>
+                        <div class="pros-cons-cell cons">An additional charge of Rs 50 per executed order for MIS/BO/CO positions which are not square off by the customer.</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">Set long-standing stop loss and target orders for your stock investments.</div>
+                        <div class="pros-cons-cell cons">Call & Trade is available at an additional fee of Rs 50 per executed order.</div>
+                    </div>
+                    <div class="pros-cons-row">
+                        <div class="pros-cons-cell pros">An all-new mobile app built for both, passive investors and active day traders, with significant speed and user experience enhancements.</div>
+                        <div class="pros-cons-cell cons">3-in-1 trading account is not available as Zerodha doesn’t provide banking services.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ratings-section" class="hidden">
+            <h2>Ratings</h2>
+            <div class="ratings-container">
+                <div class="ratings-card">
+                    <img src="{% static 'brokercompare/assets/images/angel_logo.png' %}" alt="Angel One" class="rating-logo">
+                    <div class="rating-stars">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-half.png' %}" alt="Half Star">
+                    </div>
+                    <h3>Angel One</h3>
+                    <p class="rating-score">4.7</p>
+                    <ul class="rating-details">
+                        <li><span>Trust Factor</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                        <li><span>Ease of Use</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                        <li><span>Technology</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                    </ul>
+                    <a href="#" class="open-account-btn">Open Demat Account</a>
+                </div>
+                <div class="ratings-card">
+                    <img src="{% static 'brokercompare/assets/images/zerodha_logo.png' %}" alt="Zerodha" class="rating-logo">
+                    <div class="rating-stars">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star">
+                        <img src="{% static 'brokercompare/assets/images/star-half.png' %}" alt="Half Star">
+                    </div>
+                    <h3>Zerodha</h3>
+                    <p class="rating-score">4.6</p>
+                    <ul class="rating-details">
+                        <li><span>Trust Factor</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                        <li><span>Ease of Use</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                        <li><span>Technology</span> <span class="rating-stars"><img src="{% static 'brokercompare/assets/images/star-filled.png' %}" alt="Star"></span></li>
+                    </ul>
+                    <a href="#" class="open-account-btn">Open Demat Account</a>
+                </div>
+            </div>
+        </div>
+        <div id="financials-section" class="hidden">
+            <h2>Financials</h2>
+            <canvas id="financialsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        // Consolidated JavaScript to toggle the visibility of sections
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Remove 'active' class from all links
+        document.querySelectorAll('.nav-menu a').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked link
+        this.classList.add('active');
+
+        // Hide all sections
+        document.querySelectorAll('.dashboard > div').forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        // Show the corresponding section based on the clicked link's ID
+        const linkId = event.target.id;
+        if (linkId === 'active-clients-link') {
+            document.getElementById('active-clients-section').classList.remove('hidden');
+        } else if (linkId === 'charges-link') {
+            document.getElementById('charges-section').classList.remove('hidden');
+        } else if (linkId === 'complaints-link') {
+            document.getElementById('complaints-section').classList.remove('hidden');
+        } else if (linkId === 'pros-cons-link') {
+            document.getElementById('pros-cons-section').classList.remove('hidden');
+        } else if (linkId === 'share-holding-link') {
+            document.getElementById('share-holding-section').classList.remove('hidden');
+        } else if (linkId === 'ratings-link') {
+            document.getElementById('ratings-section').classList.remove('hidden');
+        } else if (linkId === 'financials-link') {
+            document.getElementById('financials-section').classList.remove('hidden');
+        } else {
+            document.getElementById('section-container').classList.remove('hidden');
+        }
+        });
+        });
+
+        // Chart.js script to generate the Active Clients graph
+        const ctx = document.getElementById('activeClientsChart').getContext('2d');
+        const activeClientsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [
+                    {
+                        label: 'Angel One',
+                        data: [2, 3, 6, 12, 25, 45, 65, 75],
+                        borderColor: 'orange',
+                        backgroundColor: 'rgba(255, 165, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'orange',
+                        pointRadius: 6,
+                    },
+                    {
+                        label: 'Zerodha',
+                        data: [2, 4, 9, 18, 35, 55, 78, 80],
+                        borderColor: 'blue',
+                        backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'blue',
+                        pointRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + 'L'; // 'L' stands for Lakhs
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart.js script to generate the Complaints graph
+        const complaintsCtx = document.getElementById('complaintsChart').getContext('2d');
+        const complaintsChart = new Chart(complaintsCtx, {
+            type: 'line',
+            data: {
+                labels: ['2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [
+                    {
+                        label: 'Angel One',
+                        data: [200, 250, 250, 280, 1300, 1600, 600, 200],
+                        borderColor: 'orange',
+                        backgroundColor: 'rgba(255, 165, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'orange',
+                        pointRadius: 6,
+                    },
+                    {
+                        label: 'Zerodha',
+                        data: [100, 150, 300, 280, 800, 700, 500, 300],
+                        borderColor: 'blue',
+                        backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'blue',
+                        pointRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Event Listener for Share Holding Link
+         document.querySelector('#share-holding-link').addEventListener('click', function(event) {
+         event.preventDefault();
+
+         // Hide all sections
+         document.querySelectorAll('.dashboard > div').forEach(section => {
+         section.classList.add('hidden');
+         });
+
+           // Show the Share Holding section
+           document.getElementById('share-holding-section').classList.remove('hidden');
+           });
+
+        // Chart.js script to generate the Share Holding graph for Angel One
+        const shareHoldingAngelOneCtx = document.getElementById('shareHoldingAngelOne').getContext('2d');
+        const shareHoldingAngelOneChart = new Chart(shareHoldingAngelOneCtx, {
+            type: 'bar',
+            data: {
+            labels: ['Promoters', 'Public', 'Institutions', 'Others'],
+            datasets: [
+            {
+                label: 'Angel One',
+                data: [40, 25, 15, 5],
+                backgroundColor: 'orange',
+                borderColor: 'orange',
+                borderWidth: 1,
+                fill: true
+            }
+        ]
+        },
+        options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+        }
+        });
+
+     // Chart.js script to generate the Share Holding graph for Zerodha
+     const shareHoldingZerodhaCtx = document.getElementById('shareHoldingZerodha').getContext('2d');
+     const shareHoldingZerodhaChart = new Chart(shareHoldingZerodhaCtx, {
+     type: 'bar',
+     data: {
+        labels: ['Promoters', 'Public', 'Institutions', 'Others'],
+        datasets: [
+            {
+                label: 'Zerodha',
+                data: [30, 20, 10, 3],
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                borderWidth: 1,
+                fill: true
+            }
+        ]
+       },
+       options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+          }
+      });
+
+      const financialsCtx = document.getElementById('financialsChart').getContext('2d');
+      const financialsChart = new Chart(financialsCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Revenue', 'Profit/Loss'],
+        datasets: [
+            {
+                label: 'Angel One - 2019-20',
+                data: [500, 50],
+                backgroundColor: 'rgba(255, 165, 0, 0.7)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Zerodha - 2019-20',
+                data: [1000, 100],
+                backgroundColor: 'rgba(0, 0, 255, 0.7)',
+                borderColor: 'rgba(0, 0, 255, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Angel One - 2020-21',
+                data: [1500, 200],
+                backgroundColor: 'rgba(255, 165, 0, 0.5)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Zerodha - 2020-21',
+                data: [2500, 300],
+                backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                borderColor: 'rgba(0, 0, 255, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Angel One - 2021-22',
+                data: [2000, 150],
+                backgroundColor: 'rgba(255, 165, 0, 0.4)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Zerodha - 2021-22',
+                data: [3500, 400],
+                backgroundColor: 'rgba(0, 0, 255, 0.4)',
+                borderColor: 'rgba(0, 0, 255, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Angel One - 2022-23',
+                data: [3000, 250],
+                backgroundColor: 'rgba(255, 165, 0, 0.3)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Zerodha - 2022-23',
+                data: [4500, 600],
+                backgroundColor: 'rgba(0, 0, 255, 0.3)',
+                borderColor: 'rgba(0, 0, 255, 1)',
+                borderWidth: 1
+            }
+        ]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+      }
+      });
+
+
+
+    </script>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Trading View</a></li>
+                        <li><a href="#">NSE Holidyas</a></li>
+                        <li><a href="#">e-Voting CDSL</a></li>
+                        <li><a href="#">e-Voting NSDL</a></li>
+                        <li><a href="#">Market Timings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">Carrers</a></li>
+                        <li><a href="#">Contacts Us</a></li>
+                        <li><a href="#">About US</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Offerings</h4>
+                    <ul>
+                       
+                        <li><a href="#">Compare Broker</a></li>
+                        <li><a href="#">Fin Calculators</a></li> 
+                        <li><a href="#">IPO</a></li> 
+                        <li><a href="#">All Brokers</a></li>
+                        <li><a href="#">Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="#">Short investor</a></li>
+                        <li><a href="#">Mutual Funds</a></li>
+                        <li><a href="#">Sitemap</a></li>
+                        <li><a href="#">Indian Indices</a></li>
+                        <li><a href="#">Bug Bounty Program </a></li>
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Policy</h4>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Refund policy</a></li>
+                        <li><a href="#">Disclaimar</a></li>
+                        <li><a href="#">Trust & Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footerContainer1">
+        
+        <div class="container-fluid p-0">
+
+            <div class="socialicons">
+                <a href=""><i class="fa-brands fa-x"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-youtube"></i></a>
+                <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-telegram"></i></a>
+            </div>
+
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'brokercompare/assets/img/logo.png' %}" alt="" width="45" height="25"
+                    class="d-inline-block align-text-top">
+                    STOCKERA
+            </a>
+            <p>STOCKERA Fintech</p>
+        <p>Pune, Maharashtra</p>
+
+        <p>MSME Registration No:</p>
+        <p>UDYAM-MH-01-v0138001</p>
+        <img src="{% static 'brokercompare/assets/img/startupindialogo.png' %}" alt="" width="253" height="63">
+        <br>
+        </div>
+        <div class="footer1">
+        
+            <p>Investment in securities markets is subject to market risks. Read all related documents carefully before investing, as prescribed by SEBI. Issued in the interest of investors.</p>
+            <p>For any app or website-related queries, users can write to:</p>
+            <p><a href="mailto:hello@STOCKERA.in">hello@STOCKERA.in</a></p>
+            <p>For IT or tech-related feedback, contact:</p>
+            <p><a href="mailto:cto@STOCKERA.in">cto@STOCKERA.in</a></p>
+
+            <div class="disclaimer">
+                <p>Disclaimer: We are not a SEBI registered research analyst company. We do not provide any stock recommendations, buy/sell stock tips, or investment and trading advice. All the stock scripts shown in the STOCKERA app, website, and all social media handles are for educational purposes only.</p>
+                <p>Before making any investment in the financial market, it is advisable to consult with your financial advisor. Remember that stock markets are subject to market risks.</p>
+            </div>
+        </div>    
+    </div>
+     <hr>
+    <div class="lastfooter">
+        <div>STOCKERA Fintech All Rights Reserved.</div> 
+        <div> Made with <span class="heart">❤</span> in Pune, Maharashtra</div>
+    </div>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/44b6757bf6.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+const faqQuestions = document.querySelectorAll(".faq-question");
+
+faqQuestions.forEach(question => {
+    question.addEventListener("click", function() {
+        const answer = this.nextElementSibling;
+        if (answer.style.display === "block") {
+            answer.style.display = "none";
+            this.querySelector(".icon").textContent = "+";
+        } else {
+            answer.style.display = "block";
+            this.querySelector(".icon").textContent = "-";
+        }
+    });});});
+</script>
+  </body>
+</html>

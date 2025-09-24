@@ -1,0 +1,669 @@
+
+
+.bodydiv{
+    background-color: #ffffff;
+    margin: 0;
+    display: flex;
+}
+
+.nav-menu {
+    background-color: #ffffff;
+    /*border-right: 1px solid #E5E7EB;*/
+    width: 240px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);*/
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #1d64ff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    background-color: #6366F1;
+    color: #ffffff;
+}
+
+.nav-menu a img {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-menu a.active {
+    background-color: #1d64ff; /* Change background color for the active link */
+    color: #ffffff; /* Change text color for the active link */
+    font-weight: bold; /* Make the active link text bold */
+}
+
+.dashboard {
+    padding: 40px;
+    flex-grow: 1;
+}
+
+.section-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.section-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+}
+
+.section-card img {
+    max-width: 60px;
+    margin-bottom: 15px;
+}
+
+.section-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.section-card .rating {
+    font-size: 36px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.section-card p {
+    font-size: 16px;
+    color: #6B7280;
+    margin-bottom: 20px;
+}
+
+.section-card .button {
+    background-color: #3B82F6;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.section-card .button:hover {
+    background-color: #2563EB;
+}
+
+.vs {
+    font-size: 24px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Responsive styles for mobile */
+@media only screen and (max-width: 768px) {
+
+    .bodydiv{
+        flex-direction: column; /* Stack content vertically */
+    }
+
+    .nav-menu {
+        width: 100%;
+        padding: 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .nav-menu a {
+        flex: 1 1 45%; /* Adjust the width of each menu item */
+        font-size: 16px;
+        padding: 10px 5px;
+        justify-content: center;
+    }
+
+    .dashboard {
+        padding: 20px;
+    }
+
+    .section-container {
+        gap: 20px;
+    }
+
+    .section-card {
+        width: 100%; /* Make cards take full width on small screens */
+        padding: 20px;
+    }
+
+    .vs {
+        font-size: 18px;
+    }
+}
+
+/*********************************************************************/
+
+.hidden {
+    display: none;
+}
+
+#active-clients-section {
+    margin-top: 40px;
+    padding: 20px; /* Add some padding for spacing */
+}
+
+#activeClientsChart {
+    max-width: 100%;
+    height: 400px;
+}
+
+/* Responsive styles for active-clients-section */
+@media only screen and (max-width: 768px) {
+    #active-clients-section {
+        margin-top: 20px;
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    #activeClientsChart {
+        height: auto; /* Let the chart height adjust automatically on smaller screens */
+        max-height: 300px; /* Limit the max height to avoid large charts on small screens */
+    }
+
+    #active-clients-section h2 {
+        font-size: 24px; /* Adjust heading size for better readability on mobile */
+        text-align: center; /* Center the heading for a better look on mobile */
+    }
+}
+
+/*********************************************************************/
+/* Styles for the Charges Table */
+.charges-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+.charges-table thead {
+    background-color: #1D4ED8;
+    color: #ffffff;
+}
+
+.charges-table th{
+    padding: 12px 15px;
+}
+
+.charges-table, .charges-table td {
+    padding: 12px 15px;
+    border: 1px solid #000000;
+}
+
+/*.charges-table tbody tr:nth-child(even) {
+    background-color: #F3F4F6;
+}*/
+
+/* Styles for Brokerage Charges Icons */
+.brokerage-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.row {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: space-between;
+}
+
+.icon-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+}
+
+.icon-card img {
+    max-width: 50px;
+    margin-bottom: 10px;
+}
+
+.icon-card .icon-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.icon-card .icon-label {
+    font-size: 16px;
+    color: #6B7280;
+}
+
+.row-label {
+    font-size: 16px;
+    color: #000000;
+    text-align: center;
+    flex-grow: 1; /* Fill the space between icons */
+}
+
+.green-card {
+    background: linear-gradient(180deg, #A4E3B9 0%, #72D0C5 100%);
+}
+
+.blue-card {
+    background: linear-gradient(180deg, #C3DFFA 0%, #A0CBF2 100%);
+}
+
+/* Styles for Brokerage Charges Icons */
+/*.brokerage-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.icon-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+}
+
+.icon-card img {
+    max-width: 50px;
+    margin-bottom: 10px;
+}
+
+.icon-card .icon-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.icon-card .icon-label {
+    font-size: 16px;
+    color: #6B7280;
+}*/
+
+/*******************************************************/
+
+#complaints-section {
+    margin-top: 40px;
+}
+
+#complaintsChart {
+    max-width: 100%;
+    height: 400px;
+}
+
+/********************************************************/
+
+#share-holding-section {
+    padding: 20px;
+}
+
+#share-holding-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#share-holding-section canvas {
+    margin-bottom: 40px;
+}
+
+/********************************************************/
+
+/* Pros & Cons Section Styles */
+.pros-cons-container {
+    padding: 20px;
+}
+
+.pros-cons-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.pros-cons-row {
+    display: flex;
+}
+
+.pros-cons-header {
+    font-weight: bold;
+    padding: 15px;
+    background-color: #ffebee;
+    border: 1px solid #3B82F6;
+    text-align: center;
+    flex: 1;
+    font-size: 16px;
+}
+
+.pros-cons-cell {
+    padding: 15px;
+    border: 1px solid #3B82F6;
+    flex: 1;
+    font-size: 14px;
+}
+
+.pros-cons-cell.pros {
+    background-color: #ffffff;
+}
+
+.pros-cons-cell.cons {
+    background-color: #ffffff;
+}
+
+/* Responsive Design for Pros & Cons Section */
+@media (max-width: 768px) {
+    .pros-cons-header {
+        font-size: 14px; /* Slightly smaller text for headers */
+        padding: 10px;   /* Reduced padding for better fit */
+    }
+
+    .pros-cons-cell {
+        font-size: 12px; /* Smaller text size for cell content */
+        padding: 10px;   /* Reduced padding for cell content */
+    }
+
+    .pros-cons-table {
+        margin-bottom: 15px; /* Slightly reduce margin between tables */
+    }
+}
+
+@media (max-width: 480px) {
+    .pros-cons-header {
+        font-size: 12px; /* Further reduction for very small screens */
+        padding: 8px;    /* Further reduced padding */
+    }
+
+    .pros-cons-cell {
+        font-size: 10px; /* Smaller text size for very small screens */
+        padding: 8px;    /* Further reduced padding */
+    }
+
+    .pros-cons-table {
+        margin-bottom: 10px; /* Further reduce margin between tables */
+    }
+}
+
+/*************************************************************************/
+
+/* Ratings Section Styles */
+#ratings-section {
+    padding: 40px 20px;
+    background-color: #f9fafb; /* Light background for the section */
+}
+
+.ratings-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center the cards */
+}
+
+.ratings-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    flex: 1;
+    max-width: 350px; /* Limit the card width */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.ratings-card:hover {
+    transform: translateY(-10px); /* Lift card on hover */
+}
+
+.rating-logo {
+    width: 60px; /* Adjust the size of the logos */
+    margin-bottom: 15px;
+}
+
+.ratings-card h3 {
+    font-size: 24px; /* Slightly larger font for card title */
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.rating-score {
+    font-size: 56px; /* Larger font for rating score */
+    font-weight: 700; /* Bolder weight for emphasis */
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.rating-stars img {
+    width: 28px; /* Larger star icons */
+    height: 28px;
+}
+
+.rating-details {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #6B7280;
+}
+
+.rating-details li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.rating-details li span.rating-stars img {
+    width: 20px; /* Adjust star size in details */
+    height: 20px;
+}
+
+/* Button Styling */
+.ratings-card .open-account-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #10B981; /* Green button */
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.ratings-card .open-account-btn:hover {
+    background-color: #059669; /* Darker green on hover */
+}
+
+/* Responsive Design for Ratings Section */
+@media (max-width: 768px) {
+    .ratings-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ratings-card {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}
+
+/*************************************************************************/
+
+#financials-section {
+    padding: 20px;
+}
+
+#financials-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#financialsChart {
+    max-width: 100%;
+    height: 400px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    #financials-section {
+        padding: 10px;
+    }
+
+    #financials-section h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    #financialsChart {
+        height: 350px; /* Increased height to allow more space for legends */
+        max-width: 100%;
+    }
+
+    /* Ensure that legends are visible and not cut off */
+    .chartjs-legend ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 14px;
+        padding: 0;
+        margin: 10px 0; /* Adding margin to give more space to the chart */
+    }
+
+    .chartjs-legend li {
+        margin-right: 10px;
+        margin-bottom: 5px;
+        text-align: left;
+        line-height: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    #financials-section {
+        padding: 5px;
+    }
+
+    #financials-section h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    #financialsChart {
+        height: 300px; /* Increased height for better visibility */
+        max-width: 100%;
+    }
+
+    /* Further adjust legend styles for smaller screens */
+    .chartjs-legend ul {
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .chartjs-legend li {
+        margin-right: 8px;
+        margin-bottom: 4px;
+    }
+}
+
+/*
+.section-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-card img {
+    max-width: 50px;
+    margin-bottom: 10px;
+}
+
+.section-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.section-card .rating {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.section-card p {
+    font-size: 16px;
+    color: #6B7280;
+    margin-bottom: 20px;
+}
+
+.section-card .button {
+    background-color: #34D399;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.section-card .button:hover {
+    background-color: #10B981;
+}
+
+.vs {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0 20px;
+    align-self: center;
+}
+
+.section-container {
+    display: flex;
+    align-items: center;
+}
+*/

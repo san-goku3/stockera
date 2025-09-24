@@ -1,0 +1,79 @@
+<!-- home.html -->
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %} Upcomming IPO {% endblock %}
+
+{% block head %}
+<link href="{% static 'ipo/css/ipo.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1 class="heading">Upcoming IPOs</h1>
+
+  <div class="row" id="ipo-container">
+    <!-- IPO cards will be injected here -->
+    {% for ipo in ipo_infos %}
+    <div class="col-lg-4 col-md-6 col-12 mb-4">
+      <div class="card h-100">
+          <div class="card-header text-center">
+              <div class="row">
+                  <div class="col-4">
+                      <img src="{{ ipo.company_logo_path }}" class="card-img-top" alt="{{ ipo.company_name }} logo">
+                  </div>
+                  <div class="col-8">
+                      <h5 class="card-title">{{ ipo.company_name|default:"Not issued" }}</h5>
+                  </div>
+              </div>
+          </div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-6">
+                      <li class="list-group-item">Price Band:</li>
+                      <h6>{{ ipo.price_band|default:"Not issued" }}</h6>
+                  </div>
+                  <div class="col-6">
+                      <li class="list-group-item">Open:</li>
+                      <h6>{{ ipo.open|default:"Not issued" }}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <li class="list-group-item">Close:</li>
+                      <h6>{{ ipo.close|default:"Not issued" }}</h6>
+                  </div>
+                  <div class="col-6">
+                      <li class="list-group-item">Issue Size:</li>
+                      <h6>{{ ipo.issue_size|default:"Not issued" }}</h6>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <li class="list-group-item">Issue Type:</li>
+                      <h6>{% if ipo.issue_type == '1' %}
+                        Book Built
+                    {% elif ipo.issue_type == '2' %}
+                        Fixed Price
+                    {% else %}
+                        Not issued
+                    {% endif %}</h6>
+                  </div>
+                  <div class="col-6">
+                      <li class="list-group-item">Listing Date:</li>
+                      <h6>{{ ipo.listing_date|default:"Not issued" }}</h6>
+                  </div>
+              </div>
+          </div>
+          <div class="card-footer d-flex justify-content-start">
+              <a href="{{ ipo.rhp|default:'#' }}" class="btn btn-outline-primary me-2">RHP</a>
+              <a href="{{ ipo.drhp|default:'#' }}" class="btn btn-secondary">DRHP</a>
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

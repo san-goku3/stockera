@@ -1,0 +1,645 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %} | Stockera</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- ===== Link Swiper's CSS ===== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- ===== Fontawesome CDN Link ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="{% static 'shark/css/shark.css' %}">
+    {% block head %}{% endblock %}
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    font-family: 'Poppins', sans-serif;
+    
+    
+}
+
+.logo {
+    width: 132px;
+    height: 118px;
+    flex-shrink: 0;
+    left: 43px;
+    
+}
+
+.navbar-brand {
+    color: #1E1E1E;
+    size: 45PX;
+    border: 1px;
+
+    font-weight: 700;
+    
+    
+
+}
+
+#navbarSupportedContent {
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.dropdown-menu {
+    font-size: 15px;
+    
+}
+
+#signup_button {
+    margin-right: 2rem;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#signin {
+    font-size: 15px;
+    color: #9A9A9A;
+    
+}
+
+.signin_up {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.btn {
+    height: 1.2 rem;
+    
+}
+
+.toggle-icon {
+    background: none;
+}
+
+.toggle-icon:hover {
+    background: none;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.faq-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.faq {
+    padding: 10px;
+}
+
+.faq-question {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px; /* Adjusted font size for better responsiveness */
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+
+.icon {
+    font-weight: bold;
+    font-size: 24px; /* Adjusted font size for better visibility */
+    margin-left: 10px; /* Added margin to separate icon from text */
+}
+
+@media (max-width: 992px) { /* For tablets */
+    .faq-question {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) { /* For mobile phones */
+    .faq-question {
+        font-size: 16px;
+    }
+}
+
+.footer {
+    
+    left: 412px;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+    
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    position: relative;
+    
+}
+
+/*.footer .container {
+        flex-direction: column;
+    
+        justify-content:space-between ;
+        position: relative;
+        
+    }*/
+
+.footer .footer-col {
+    flex: 1;
+    min-width: 150px;
+    margin: 10px;
+    
+    
+}
+
+.footer .footer-col h4 {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    width: 20%;
+    
+}
+
+.footer .footer-col ul {
+    list-style: none;
+    padding: 0;
+    
+    
+}
+
+.footer .footer-col ul li {
+    margin-bottom: 10px;
+    
+}
+
+.footer .footer-col ul li a {
+    color: #667384;
+    
+    text-decoration: none;
+    transition: color 0.3s;
+    
+}
+
+    
+    .footer .footer-col {
+        left:auto
+        
+    }
+
+    .footerContainer1{
+        display:flex;
+        padding: 20px;
+      }
+
+      @media (max-width: 995px) { 
+        .footerContainer1{
+            display:flex;
+            padding: 20px;
+            flex-wrap: wrap;
+          }
+    }
+      
+      .footer, .container-fluid p-0 {
+          flex: 1;
+          padding: 10px;
+        
+      }
+      
+      footer1 {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px;
+          
+      }
+      .heart {
+        color: red;
+    }
+    
+    .lastfooter {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    @media (max-width: 656px)
+    {
+        .lastfooter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+    }
+
+    .offcanvas {
+    width: 250px; /* Customize width */
+}
+
+.offcanvas-header {
+    background-color: #f8f9fa; /* Light background */
+}
+
+.offcanvas-body .nav-link {
+    font-size: 18px; /* Adjust the font size for better visibility */
+}
+    
+    </style>
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+            <div class="container-fluid">
+                <nav class="navbar navbar-light bg-light px-0">
+                    <div class="container-fluid p-0">
+                        <a class="navbar-brand" href="#">
+                            <img src="{% static 'shark/assets/img/logo.png' %}" alt="" width="45" height="25"
+                                class="d-inline-block align-text-top">
+                            STOCKERA
+                        </a>
+                    </div>
+                </nav>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+                    <div class="bignav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-none d-lg-flex">
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ipo' %}">IPO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">COMMUNITY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'sharkinvestor' %}">SHARK INVESTORS</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    BROKERS
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'brokers' %}">Broker Compare</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'brokercompare' %}">All Brokers</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">SUPPORT <i
+                                        class="fa-sharp fa-solid fa-arrow-left-long fa-rotate-by"
+                                        style="--fa-rotate-angle: 135deg;"></i></a>
+                            </li>
+                            
+    
+                        </ul>
+                    </div>
+    
+    
+                </div>
+                <div class="signin_up">
+                    <a class="nav-link nav-link-secondary  d-none d-lg-flex" id="signin" href="{% url 'sign_in' %}">Sign in</a>
+                    <a class="btn btn-primary btn-sm mr-4 d-none d-lg-flex" id="signup_button"
+   style="background-color: #3F52FF;" href="{% url 'create_account' %}">Sign Up Now</a>
+    
+    
+   <button class="toggle-icon navbar border-0 padding-right-0 pr-1" type="button"
+   data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+<span class=""><i class="fa-solid fa-grip-vertical fa-lg"></i></span>
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+<div class="offcanvas-header">
+   <h5 class="offcanvas-title" id="offcanvasNavbarLabel">STOCKERA Menu</h5>
+   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+       <li class="nav-item">
+           <a class="nav-link" href="{% url 'ipo' %}">IPO</a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="#">COMMUNITY</a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="{% url 'sharkinvestor' %}">SHARK INVESTORS</a>
+       </li>
+       <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+               BROKERS
+           </a>
+           <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+               <li><a class="dropdown-item" href="{% url 'brokercompare' %}">Broker Compare</a></li>
+               <li><a class="dropdown-item" href="{% url 'brokers' %}">All Brokers</a></li>
+           </ul>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="#">SUPPORT</a>
+       </li>
+   </ul>
+</div>
+</div>
+                </div>
+        </nav>
+        <nav class="mx-5 my-3" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'sharkinvestor' %}" style="color: blue;">Shark Investor</a></li>
+            </ol>
+        </nav>
+    </header>
+    <!-- Content block -->
+    <body>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-9">
+              <div class="heading">
+                <h1>Shark Investors</h1>
+                <p>
+                  Look into the portfolio of these Super Investors to find out their
+                  favourite stocks.
+                </p>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="search">
+                <h3>Search by Name</h3>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <div class="dropdown">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="search-input"
+                      placeholder="eg: Damani"
+                      aria-expanded="false"
+                    />
+                    <ul
+                      id="suggestions"
+                      class="dropdown-menu"
+                      aria-labelledby="search-input"
+                    ></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid my-4">
+          <div class="row" id="sharkInvestor">
+            <!-- Cards will be injected here -->
+          </div>
+        </div>
+    
+        
+        <script type="text/javascript">
+          let sharkInvestor = [];
+          let searchInput = document.getElementById("search-input");
+          let suggestionsList = document.getElementById("suggestions");
+          const staticUrl = "{% static 'shark/assets/images/' %}";
+    
+          fetch("{% static 'shark/json/sharkInvestor.json' %}")
+            .then((response) => response.json())
+            .then((data) => {
+              sharkInvestor = data;
+              let container = document.querySelector("#sharkInvestor");
+              for (let i = 0; i < sharkInvestor.length; i++) {
+                const investor = sharkInvestor[i];
+                let card = `
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 card-item">
+                    <div class="card h-100">
+                      <img src="${staticUrl}${investor.img}" class="card-img-top img-fluid" alt="${investor.name}">
+                      <div class="card-body">
+                        <h5 class="card-title">${investor.name}</h5>
+                        <p class="card-text">${investor.tagline}</p>
+                        <a href="#" class="btn btn-primary">View Holdings</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                container.innerHTML += card;
+              }
+            });
+    
+          searchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll("#sharkInvestor .card-item");
+            const filteredInvestors = sharkInvestor.filter((investor) =>
+              investor.name.toLowerCase().includes(query)
+            );
+    
+            // Display matching cards
+            cards.forEach((card) => {
+              const title = card
+                .querySelector(".card-title")
+                .textContent.toLowerCase();
+              if (title.includes(query)) {
+                card.style.display = "";
+              } else {
+                card.style.display = "none";
+              }
+            });
+    
+            // Display recommendations
+            suggestionsList.innerHTML = "";
+            if (query) {
+              filteredInvestors.forEach((investor) => {
+                const suggestionItem = document.createElement("li");
+                suggestionItem.className = "dropdown-item";
+                suggestionItem.textContent = investor.name;
+                suggestionItem.addEventListener("click", function () {
+                  searchInput.value = investor.name;
+                  suggestionsList.innerHTML = "";
+                  searchInput.focus();
+                  // filter cards based on the selected suggestion
+                  searchInput.dispatchEvent(new Event("input"));
+                });
+                suggestionsList.appendChild(suggestionItem);
+              });
+              suggestionsList.style.display = "block";
+            } else {
+              suggestionsList.style.display = "none";
+            }
+          });
+    
+          document.addEventListener("click", function (event) {
+            if (
+              !searchInput.contains(event.target) &&
+              !suggestionsList.contains(event.target)
+            ) {
+              suggestionsList.style.display = "none";
+            }
+          });
+        </script>
+    
+        <!-- Optional JavaScript; choose one of the two! -->
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"
+        ></script>
+      </body>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Trading View</a></li>
+                        <li><a href="#">NSE Holidyas</a></li>
+                        <li><a href="#">e-Voting CDSL</a></li>
+                        <li><a href="#">e-Voting NSDL</a></li>
+                        <li><a href="#">Market Timings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">Carrers</a></li>
+                        <li><a href="#">Contacts Us</a></li>
+                        <li><a href="#">About US</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Offerings</h4>
+                    <ul>
+                       
+                        <li><a href="#">Compare Broker</a></li>
+                        <li><a href="#">Fin Calculators</a></li> 
+                        <li><a href="#">IPO</a></li> 
+                        <li><a href="#">All Brokers</a></li>
+                        <li><a href="#">Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="#">Short investor</a></li>
+                        <li><a href="#">Mutual Funds</a></li>
+                        <li><a href="#">Sitemap</a></li>
+                        <li><a href="#">Indian Indices</a></li>
+                        <li><a href="#">Bug Bounty Program </a></li>
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Policy</h4>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Refund policy</a></li>
+                        <li><a href="#">Disclaimar</a></li>
+                        <li><a href="#">Trust & Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footerContainer1">
+        
+        <div class="container-fluid p-0">
+
+            <div class="socialicons">
+                <a href=""><i class="fa-brands fa-x"></i></a>
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-youtube"></i></a>
+                <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-telegram"></i></a>
+            </div>
+
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'shark/assets/img/logo.png' %}" alt="" width="45" height="25"
+                    class="d-inline-block align-text-top">
+                STOCKERA
+            </a>
+            <p>STOCKERA</p>
+        <p>Pune, Maharashtra</p>
+
+        <p>MSME Registration No:</p>
+        <p>UDYAM-MH-01-v0138001</p>
+        <img src="{% static 'shark/assets/img/startupindialogo.png' %}" alt="" width="253" height="63">
+        <br>
+        </div>
+        <div class="footer1">
+        
+            <p>Investment in securities markets is subject to market risks. Read all related documents carefully before investing, as prescribed by SEBI. Issued in the interest of investors.</p>
+            <p>For any app or website-related queries, users can write to:</p>
+            <p><a href="mailto:hello@STOCKERA.in">hello@STOCKERA.in</a></p>
+            <p>For IT or tech-related feedback, contact:</p>
+            <p><a href="mailto:cto@STOCKERA.in">cto@STOCKERA.in</a></p>
+
+            <div class="disclaimer">
+                <p>Disclaimer: We are not a SEBI registered research analyst company. We do not provide any stock recommendations, buy/sell stock tips, or investment and trading advice. All the stock scripts shown in the STOCKERA app, website, and all social media handles are for educational purposes only.</p>
+                <p>Before making any investment in the financial market, it is advisable to consult with your financial advisor. Remember that stock markets are subject to market risks.</p>
+            </div>
+        </div>    
+    </div>
+     <hr>
+    <div class="lastfooter">
+        <div>STOCKERA All Rights Reserved.</div> 
+        <div> Made with <span class="heart">❤</span> in Pune, Maharashtra</div>
+    </div>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/44b6757bf6.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+const faqQuestions = document.querySelectorAll(".faq-question");
+
+faqQuestions.forEach(question => {
+    question.addEventListener("click", function() {
+        const answer = this.nextElementSibling;
+        if (answer.style.display === "block") {
+            answer.style.display = "none";
+            this.querySelector(".icon").textContent = "+";
+        } else {
+            answer.style.display = "block";
+            this.querySelector(".icon").textContent = "-";
+        }
+    });});});
+</script>
+  </body>
+</html>

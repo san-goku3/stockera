@@ -1,0 +1,134 @@
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F6F5F5;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.container1 {
+    display: flex;
+    align-items: start;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.card {
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #000; /* Changed to black for better visibility */
+    border-color: #fff;
+}
+
+.card-header {
+    background-color: #fff;
+    padding: 1rem;
+    /*border: 1px solid #ddd;  Added border to see card boundary */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #414BEA;
+    line-height: 36px;
+    margin-top: 0.5rem;
+}
+
+.card-header img {
+    max-width: 100%;
+    height: auto; /* Ensure image scales correctly */
+}
+
+.list-group-item {
+    font-size: 14px;
+    border: none; /* Removed border for better readability */
+    padding: 2px;
+    font-weight: 400;
+    color: #5A5858;
+}
+
+.list-group-item h1 {
+    font-size: 14px;
+    color: black;
+    padding-top: 7px;
+}
+
+.card-footer {
+    background-color: #fff;
+    /*border-top: 1px solid #ddd;  Added border to see card boundary */
+    margin-top: 0;
+}
+
+.btn-primary, .btn-secondary {
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #414BEA;
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3332a8;
+}
+
+.btn-secondary {
+    background-color: #F05537;
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.heading h1 {
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 48px;
+    text-align: left;
+}
+
+.heading h4 {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 21px;
+    text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) { /* iPad portrait and below */
+    .card {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) { /* iPad landscape and smaller devices */
+    .card {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 576px) { /* Smaller devices (phones) */
+    .card-body .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card-body .col-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 5px;
+    }
+}
