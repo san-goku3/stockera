@@ -1,0 +1,232 @@
+old .ipynb
+# Import Libraries
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+import matplotlib.pyplot as plt
+import pickle
+
+# Load Dataset
+dataset_path = "../data/IPO_dataset.csv"  # Adjust path as needed
+data = pd.read_csv(dataset_path)
+
+# Define Features and Target
+features = ['issue_price', 'issue_size', 'hni_subscription', 'nii_subscription',
+            'rii_subscription', 'revenue_2', 'revenue_1', 'eps_2', 'eps_1']
+target = 'listing_gain'
+
+# Drop Missing Values
+data = data.dropna(subset=features + [target])
+
+# Scale Only Features
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(data[features])  # Scale features only
+y = data[target].values  # Keep target unscaled
+
+# Save the scaler for later use in prediction
+with open("../models/scaler1.pkl", "wb") as f:
+    pickle.dump(scaler, f)
+
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Reshape data for LSTM input
+# LSTM expects 3D input: [samples, time steps, features]
+# Since there is no time step in this case (single row data), we treat each row as a single time step
+X_train = X_train.reshape((X_train.shape[0], 1, X_train.shape[1]))  # (samples, time steps, features)
+X_test = X_test.reshape((X_test.shape[0], 1, X_test.shape[1]))  # (samples, time steps, features)
+
+# Define LSTM Model
+model = Sequential([
+    LSTM(64, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])),
+    Dropout(0.2),
+    LSTM(32),
+    Dropout(0.2),
+    Dense(1)  # Predict Listing Gain
+])
+
+# Compile Model
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+# Train Model
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_test, y_test),
+    epochs=20,
+    batch_size=32,
+    verbose=1
+)
+
+# Plot Training Loss
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.legend()
+plt.title('Training vs Validation Loss')
+plt.show()
+
+# Save Model
+model.save("../models/best_lstm_model1.h5")
+print("Model saved successfully!")
+
+# Optionally, save history to review later
+with open("../models/training_history.pkl", "wb") as f:
+    pickle.dump(history.history, f)
+
+old streamlit
+import streamlit as st
+import requests
+import numpy as np
+
+# Define API URL
+api_url = "http://127.0.0.1:5000/predict"  # Update if different
+
+def get_predictions(companies_data):
+    payload = {"companies": companies_data}
+    response = requests.post(api_url, json=payload)
+    
+    if response.status_code == 200:
+        return response.json()["listing_gains"]
+    else:
+        return response.json().get("error", "Error occurred")
+
+def main():
+    st.title("IPO Listing Gain Prediction")
+
+    # Input for company data (9 features per company)
+    companies_data = []
+    num_companies = st.number_input("Enter the number of companies", min_value=1, max_value=10, value=1)
+    
+    for i in range(num_companies):
+        st.write(f"Company {i + 1}")
+        features = []
+        for j in range(9):  # 9 features for each company
+            # Pass a unique key for each input field to avoid duplicate IDs
+            feature_value = st.number_input(f"Feature {j + 1}", min_value=0.0, value=0.0, key=f"company_{i}_feature_{j}")
+            features.append(feature_value)
+        companies_data.append(features)
+    
+    if st.button("Predict"):
+        if companies_data:
+            st.write("Sending data to model for prediction...")
+            predictions = get_predictions(companies_data)
+            
+            if isinstance(predictions, list):
+                for i, prediction in enumerate(predictions):
+                    st.write(f"Predicted Listing Gain for Company {i + 1}: {prediction:.2f}%")
+            else:
+                st.write(f"Error: {predictions}")
+        else:
+            st.write("Please provide data for at least one company.")
+
+if __name__ == "__main__":
+    main()
+
+old api_url
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import numpy as np
+import tensorflow as tf
+import pickle
+
+app = Flask(__name__)
+CORS(app)
+
+# Load Model and Scaler
+model = tf.keras.models.load_model("../models/best_lstm_model.h5")
+with open("../models/scaler.pkl", "rb") as f:
+    scaler = pickle.load(f)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Parse JSON Input
+        data = request.json
+        companies_data = data['companies']  # Expecting a list of companies' data
+
+        predictions = []
+
+        for company_data in companies_data:
+            # Convert company data to numpy array
+            company_features = np.array(company_data).reshape(1, 10, 9)  # Reshape to (1, 10, 9)
+
+            # Scale Features (only scale the features, not the target variable)
+            company_features_scaled = scaler.transform(company_features.reshape(-1, 9))  # Flatten for scaling
+            company_features_scaled = company_features_scaled.reshape(1, 10, 9)  # Reshape back to 3D
+
+            # Make Prediction for this company
+            prediction = model.predict(company_features_scaled)
+
+            # Append the prediction to the result
+            predictions.append(float(prediction[0]))
+
+        # Return the predictions for all companies
+        return jsonify({"listing_gains": predictions})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+old request.py
+import requests
+import numpy as np
+
+# Define the API endpoint
+url = "http://127.0.0.1:5000/predict"
+
+# Input data: Features for 10 time steps for multiple companies
+companies_data = [
+    [
+        150, 200, 1.2, 0.8, 1.5, 500000, 550000, 15, 12, 0.5,   # Company 1, Time Step 1
+        160, 210, 1.3, 0.9, 1.6, 510000, 560000, 16, 13, 0.6,   # Company 1, Time Step 2
+        170, 220, 1.4, 1.0, 1.7, 520000, 570000, 17, 14, 0.7,   # Company 1, Time Step 3
+        180, 230, 1.5, 1.1, 1.8, 530000, 580000, 18, 15, 0.8,   # Company 1, Time Step 4
+        190, 240, 1.6, 1.2, 1.9, 540000, 590000, 19, 16, 0.9,   # Company 1, Time Step 5
+        200, 250, 1.7, 1.3, 2.0, 550000, 600000, 20, 17, 1.0,   # Company 1, Time Step 6
+        210, 260, 1.8, 1.4, 2.1, 560000, 610000, 21, 18, 1.1,   # Company 1, Time Step 7
+        220, 270, 1.9, 1.5, 2.2, 570000, 620000, 22, 19, 1.2,   # Company 1, Time Step 8
+        230, 280, 2.0, 1.6, 2.3, 580000, 630000, 23, 20, 1.3,   # Company 1, Time Step 9
+        240, 290, 2.1, 1.7, 2.4, 590000, 640000, 24, 21, 1.4    # Company 1, Time Step 10
+    ],
+    [
+        160, 210, 1.3, 0.9, 1.6, 510000, 560000, 16, 13, 0.6,   # Company 2, Time Step 1
+        170, 220, 1.4, 1.0, 1.7, 520000, 570000, 17, 14, 0.7,   # Company 2, Time Step 2
+        180, 230, 1.5, 1.1, 1.8, 530000, 580000, 18, 15, 0.8,   # Company 2, Time Step 3
+        190, 240, 1.6, 1.2, 1.9, 540000, 590000, 19, 16, 0.9,   # Company 2, Time Step 4
+        200, 250, 1.7, 1.3, 2.0, 550000, 600000, 20, 17, 1.0,   # Company 2, Time Step 5
+        210, 260, 1.8, 1.4, 2.1, 560000, 610000, 21, 18, 1.1,   # Company 2, Time Step 6
+        220, 270, 1.9, 1.5, 2.2, 570000, 620000, 22, 19, 1.2,   # Company 2, Time Step 7
+        230, 280, 2.0, 1.6, 2.3, 580000, 630000, 23, 20, 1.3,   # Company 2, Time Step 8
+        240, 290, 2.1, 1.7, 2.4, 590000, 640000, 24, 21, 1.4,   # Company 2, Time Step 9
+        250, 300, 2.2, 1.8, 2.5, 600000, 650000, 25, 22, 1.5    # Company 2, Time Step 10
+    ]
+]
+
+# Convert companies' data into a numpy array and trim the data to 90 features
+companies_data_np = np.array(companies_data)
+
+# Trimming last 10 elements if there are 100 values instead of 90
+companies_data_trimmed = companies_data_np[:, :90]
+
+# Print shape of the data before reshaping
+print("Shape of input data (before reshaping):", companies_data_trimmed.shape)
+
+# Ensure the input data has the correct shape for the model: (n, 10, 9)
+companies_data_reshaped = companies_data_trimmed.reshape(companies_data_trimmed.shape[0], 10, 9)
+print("Shape of input data (after reshaping):", companies_data_reshaped.shape)
+
+# Prepare the JSON payload
+payload = {"companies": companies_data_reshaped.tolist()}
+
+# Send POST request
+response = requests.post(url, json=payload)
+
+# Display the result
+if response.status_code == 200:
+    print("Predicted Listing Gains:", response.json().get("listing_gains"))
+else:
+    print("Error:", response.json().get("error", "Unknown error"))
